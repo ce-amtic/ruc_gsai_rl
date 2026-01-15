@@ -1,0 +1,3 @@
+__pycache__/
+*.log
+models/ppo_expert_opponents/

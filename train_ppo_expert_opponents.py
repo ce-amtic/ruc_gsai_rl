@@ -1,3 +1,7 @@
+"""
+python train_ppo_expert_opponents.py
+"""
+
 import torch
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
@@ -15,6 +19,7 @@ import matplotlib.pyplot as plt
 import warnings
 from replay_buffer import PrioritizedReplayBuffer
 from ppo import compute_returns_and_advantages, compute_gae, ppo_update
+from tqdm import tqdm
 
 warnings.filterwarnings("ignore", category=FutureWarning)
 
@@ -251,7 +256,7 @@ def train(env, policy_network, optimizer, num_epochs=1000):
     logging.info(f"Epoch {0} evaluation score: {evaluation_score:.2f}")
     print(f"Epoch {0} evaluation score: {evaluation_score:.2f}")
 
-    for epoch in range(num_epochs):
+    for epoch in tqdm(range(num_epochs), desc="Training Epochs"):
         # 从经验池采样
         samples, indices = collect_trajectories(env, policy_network)
 
